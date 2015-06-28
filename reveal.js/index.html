@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Composable UI <br />with Sass</h1>
+					
+					<p>
+						<small>David Smith, Technical Lead at Mr B & Friends / <a href="http://twitter.com/get_dave">@get_dave</a></small>
+					</p>
+				</section>
+
+				<section>
+					<div data-markdown>
+					    <script type="text/template">
+					        ## Components are everywhere
+
+					        * Componentisation is the latest hotness - React, Polymer and (now) Web Components are big news
+					        * Components allow us to build simpler applications by composing smaller, independent parts into a greater system 
+					        * CSS has moving this way for some time
+					          * OOCSS - break CSS into small reusable object patterns
+					          * Pattern Lab - atoms, molecules, organisms
+					        * We don’t build “Pages” any more, we build smaller sets of objects and components which can be mixed and matched to create infinite variations of templates/pages
+					    </script>
+				    </div>
+
+				    <aside class="notes" data-markdown>
+				    
+				    </aside>
+				</section>
+
+				<section>
+					<div data-markdown>
+					    <script type="text/template">
+					        ## Example Component Libraries
+
+					        * Lonely Planet - [rizzo.lonelyplanet.com/styleguide](http://rizzo.lonelyplanet.com/styleguide/)
+					        * Southtees NHS - [southtees.nhs.uk/style-guide](http://southtees.nhs.uk/style-guide/)
+					        * Code for America - [codeforamerica.clearleft.com](http://codeforamerica.clearleft.com/)
+					    </script>
+				    </div>
+
+				    <aside class="notes" data-markdown>
+				    	
+
+				    </aside>
+				</section>
+
+				<section>
+
+					<section data-markdown>
+					    <script type="text/template">
+					        ## Components with SASS
+
+					        How do we create these objects and components using Sass?	
+
+
+					    </script>
+				    </section>
+
+				    <section>
+				    	<h2>Extends</h2>
+
+				    	<p>One simple method is to utilise extends.</p>
+
+				    	<p>Create a silent selector.</p>
+						<pre><code data-trim contenteditable class="scss">
+%ui-btn {
+  display: inline-block;
+  padding: 1em;
+  background-color: red;
+}
+				    	</code></pre>
+
+				    	<div class="fragment">
+					    	<p>...and then @extend it onto any suitable selector...</p>
+
+					    	<pre><code data-trim contenteditable class="scss">
+.btn {
+  @extend %ui-btn;
+}
+					    	</code></pre>
+				    	</div>
+
+				    	<aside class="notes">
+					    	<p>Declare styles once in an abstract manner</p>
+
+					    	<p>Reuse them across many other selectors to create pieces of UI</p>
+				    	</aside>
+				    </section>	
+
+				    
+
+
+				</section>
+
+				
+				<section>
+					<h2>Is this the most suitable method?</h2>
+					
+					<p class="fragment">...possibily not.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Why @extend <em>might</em> be bad</h2>					
+					</section>
+
+					<section>
+						<p>The extend feature has come in for criticism.</p>
+					</section>
+					
+					<section>
+						<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+							&ldquo;I would generally advise never to use @extend at all. It is something of a Fool’s Gold: a feature with a lot of promise and twice as many caveats.&rdquo;
+						</blockquote>
+						- Harry Roberts (CSS Wizardry) ~ <a href="http://bit.ly/1Im5GMg">bit.ly/1Im5GMg</a>
+					</section>
+
+					<section>
+						<h2>Why so harsh?</h2>
+						<p>Can create <strong>unsuitable</strong> relationships between otherwise unrelated entities</p>
+						
+						<p>Doesn't work within media queries</p>
+
+						<p>Unpredictable, particularly in regard to specificity issues</p>
+						
+						<aside class="notes">
+						<p><strong>Unrelated</strong> elements become tied together. Usually based on similarities which are typically <strong>only coincidental</strong>.</p>
+
+						</aside>
+					</section>
+
+					<section>
+						<h2>Other limitations...</h2>
+
+						<div style="text-align: left;">
+							<p>Limited to a <strong>single</strong> set of selector rules:</p>
+							<ul>
+								<li>Perfect for <strong>simple</strong> helpers/utility classes (eg: clearfix)</li> 
+								<li>Less useful for creating components that need to be configured at runtime</li>
+							</ul>
+
+							<p>Cannot achieve flexibility to manipulate components in Responsive context.</p>
+						</div>
+						
+						<aside class="notes">
+							<p>Less useful for creating complex UI components which require the ability to respond and vary according to variable external requirements.</p>
+						</aside>
+					</section>
+
+					<section>
+						<h1>What are our alternatives?</h1>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Mixins</h1>
+						<p class="fragment">Most experts now recommend mixins over extend.</p>
+					</section>
+
+					<section>
+						<h2>Using Mixins</h2>
+						
+						<p>SASS:</p>
+						<pre><code data-trim contenteditable class="scss">
+@mixin ui-btn {
+  display: inline-block;
+  padding: 1em;
+  background-color: red;
+}
+				    	</code></pre>
+
+				    	<pre class="fragment"><code data-trim contenteditable class="scss">
+.btn {
+  @include ui-btn;
+}
+				    	</code></pre>
+
+				    	<div class="fragment">
+				    	<p>CSS</p>
+				    	<pre><code data-trim contenteditable class="css">
+.btn { 
+  /* Mixin invocation inlined directly here */
+  display: inline-block;
+  padding: 1em;
+  background-color: red;
+}
+				    	</code></pre>
+				    	</div>
+
+					</section>
+
+					<section>
+						<h2>Why might this be better?</h2>
+
+						<p class="fragment">More predictable output</p>
+
+						<p class="fragment">Doesn't force relationships between unrelated elements</p>
+
+						<p class="fragment">Works within Media Queries!</p>
+
+						<p class="fragment">Configurable at runtime.</p>
+
+
+						<aside class="notes">
+							<div data-markdown>
+							    <script type="text/template">
+									* More predictable - output of mixins is simply inlined into the ruleset, avoiding unpredictable specificity issues
+									* Doesn’t force relationships - compiled output is more logical and contains meaningful selector relationships
+									* Works within Media Queries - a massive win!
+									* Configurable - allows for greater flexibility
+								</script>
+							</div>
+						</aside>
+
+					</section>
+				</section>
+
+				<section>
+                    <section>
+                        <h1>
+                            <small>Mixin Component #1:</small><br />
+                            Ratio Box
+                        </h1>
+                    </section>
+					
+                    <section>
+
+    					<p>A simple mixin to create "Ratio boxes" based on the technique outlined by Dave Rupert <a href="http://bit.ly/1JpRX8z">http://bit.ly/1JpRX8z.</a></p>
+
+                        <p>Sass</p>
+    					<pre><code data-trim contenteditable class="scss">
+@mixin ui-ratio-box { 
+    display: block;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
+.box-element {
+    @include ui-ratio-box;
+}
+    				    </code></pre>
+
+                        <p>CSS</p>
+                        <pre><code data-trim contenteditable class="css">
+.box-element {
+    display: block;
+    height: 0;
+    padding-bottom: 56.25%; 
+}
+
+                        </code></pre>
+
+
+    				</section>
+
+                    <section>
+                        <h3>How is this better than @extends...?</h3>
+                        <p>...use arguments for configuration!</h3>
+                        <p>Sass</p>
+                        <pre><code data-trim contenteditable class="scss">
+@mixin ui-ratio-box( $ratio: 16/9 ) { // default argument
+    display: block;
+    height: 0;
+    padding-bottom: (1 / $ratio) * 100%; // arguments in use
+}
+
+.box-element {
+    @include ui-ratio-box(4/3); // overide the default at runtime
+}
+                            </code></pre>
+
+                            <div class="fragment">
+                                <p>CSS</p>
+<pre><code data-trim contenteditable class="css">
+.box-element {
+    display: block;
+    height: 0;
+    padding-bottom: 75%; /* configuration FTW! */
+}
+</code></pre>
+                            </div>
+                            <aside class="notes">
+                                <p>Doing the same with @extends would be far more verbose.</p>
+                            </aside>
+
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>
+                            <small>Mixin Component #2:</small><br />
+                            Vertically Centered
+                        </h1>
+                    </section>
+                
+                    <section>
+                        <p>Table method requires an outer element to act as the table and an inner element to act as a table-cell.</p>
+<pre><code data-trim contenteditable class="css">
+@mixin vcenter {
+    display: table;
+
+    & > div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+.centered-component {
+    @include vcenter();
+}
+</code></pre>
+                        <p class="fragment">Question: Why might this not be very flexible?</p>
+                        <p class="fragment">Answer: forces you to use div for child element.</p>
+                    </section>
+
+                    <section>
+                        <h2>Solution: config to the rescue!</h2>
+                    </section>
+
+                    <section>
+<p>SASS</p>
+<pre><code data-trim contenteditable class="scss">
+@mixin ui-vcenter( $child-element: "div" ) {
+    display: table;
+
+    // variable interpolation - bit.ly/1LNalWq
+    & > #{$child-element} { 
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+figure {
+    @include ui-vcenter("figcaption"); // configure child element
+}
+
+.my-picture {
+    @include ui-vcenter(".mypicture__caption"); // use a selector
+}
+
+</code></pre>
+
+                    </section>
+
+                    <section>
+                        <p>Opens up possibility to create an arsenal of small, focused UI components and helpers.</p>
+
+                        <div class="fragment">
+                            <h1>Scut</h1>
+                            <p><small><a href="https://github.com/davidtheclark/scut">github.com/davidtheclark/scut</a></small></p>
+                            <p>A mixin-based library of flexible abstractions of common UI patterns, created by David Clark.</p>
+                        </div>
+                    </section>
+                </section>
+
+			
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/get_dave/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
