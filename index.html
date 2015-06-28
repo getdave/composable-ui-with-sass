@@ -53,12 +53,12 @@
 					    <script type="text/template">
 					        ## Components are everywhere
 
-					        * Componentisation is the latest hotness - React, Polymer and (now) Web Components are big news
-					        * Components allow us to build simpler applications by composing smaller, independent parts into a greater system 
+					        * React, Polymer and (now) Web Components are big news
+					        * Allow us to build more simply by composing smaller, independent parts into a greater system 
 					        * CSS has moving this way for some time
 					          * OOCSS - break CSS into small reusable object patterns
 					          * Pattern Lab - atoms, molecules, organisms
-					        * We don’t build “Pages” any more, we build smaller sets of objects and components which can be mixed and matched to create infinite variations of templates/pages
+					        * We don’t build “Pages” any more, we build smaller sets of objects and components ("Patterns") which can be mixed and matched to create infinite variations of templates/pages
 					    </script>
 				    </div>
 
@@ -70,7 +70,7 @@
 				<section>
 					<div data-markdown>
 					    <script type="text/template">
-					        ## Example Component Libraries
+					        ## Example "Component" Libraries
 
 					        * Lonely Planet - [rizzo.lonelyplanet.com/styleguide](http://rizzo.lonelyplanet.com/styleguide/)
 					        * Southtees NHS - [southtees.nhs.uk/style-guide](http://southtees.nhs.uk/style-guide/)
@@ -90,7 +90,7 @@
 					    <script type="text/template">
 					        ## Components with SASS
 
-					        How do we create these objects and components using Sass?	
+					        How do we create these resuable UI patterns with Sass?	
 
 
 					    </script>
@@ -101,7 +101,7 @@
 
 				    	<p>One simple method is to utilise extends.</p>
 
-				    	<p>Create a silent selector.</p>
+				    	<p>1. Create a silent selector.</p>
 						<pre><code data-trim contenteditable class="scss">
 %ui-btn {
   display: inline-block;
@@ -111,10 +111,10 @@
 				    	</code></pre>
 
 				    	<div class="fragment">
-					    	<p>...and then @extend it onto any suitable selector...</p>
+					    	<p>2. @extend it onto any suitable selector...</p>
 
 					    	<pre><code data-trim contenteditable class="scss">
-.btn {
+.call-to-action {
   @extend %ui-btn;
 }
 					    	</code></pre>
@@ -145,7 +145,7 @@
 					</section>
 
 					<section>
-						<p>The extend feature has come in for criticism.</p>
+						<p>The extend feature has come in for criticism from leaders in the field of CSS.</p>
 					</section>
 					
 					<section>
@@ -157,11 +157,12 @@
 
 					<section>
 						<h2>Why so harsh?</h2>
-						<p>Can create <strong>unsuitable</strong> relationships between otherwise unrelated entities</p>
+						<p class="fragment">Can create <strong>unsuitable</strong> relationships between otherwise unconnected entities</p>
 						
-						<p>Doesn't work within media queries</p>
+						<p class="fragment">Unpredictable, particularly in regard to specificity issues</p>
+						
+						<p class="fragment">Doesn't work within media queries</p>
 
-						<p>Unpredictable, particularly in regard to specificity issues</p>
 						
 						<aside class="notes">
 						<p><strong>Unrelated</strong> elements become tied together. Usually based on similarities which are typically <strong>only coincidental</strong>.</p>
@@ -170,7 +171,7 @@
 					</section>
 
 					<section>
-						<h2>Other limitations...</h2>
+						<h2>Other drawbacks...</h2>
 
 						<div style="text-align: left;">
 							<p>Limited to a <strong>single</strong> set of selector rules:</p>
@@ -179,7 +180,7 @@
 								<li>Less useful for creating components that need to be configured at runtime</li>
 							</ul>
 
-							<p>Cannot achieve flexibility to manipulate components in Responsive context.</p>
+							<p><strong>Key issue: </strong> cannot achieve flexibility to manipulate components within a Responsive context.</p>
 						</div>
 						
 						<aside class="notes">
@@ -235,11 +236,13 @@
 
 						<p class="fragment">More predictable output</p>
 
-						<p class="fragment">Doesn't force relationships between unrelated elements</p>
+						<p class="fragment">Doesn't create relationships between unrelated elements</p>
 
 						<p class="fragment">Works within Media Queries!</p>
 
 						<p class="fragment">Configurable at runtime.</p>
+
+						<h4 style="margin-top: 1em;" class="fragment">Substantial advantages for creating components.</h4>
 
 
 						<aside class="notes">
@@ -281,6 +284,7 @@
 }
     				    </code></pre>
 
+    				    <div class="fragment">
                         <p>CSS</p>
                         <pre><code data-trim contenteditable class="css">
 .box-element {
@@ -290,13 +294,14 @@
 }
 
                         </code></pre>
-
+                        </div>
 
     				</section>
 
                     <section>
                         <h3>How is this better than @extends...?</h3>
-                        <p>...use arguments for configuration!</h3>
+                        <p class="fragment">...we can use arguments for configuration!</p>
+                        <div class="fragment">
                         <p>Sass</p>
                         <pre><code data-trim contenteditable class="scss">
 @mixin ui-ratio-box( $ratio: 16/9 ) { // default argument
@@ -309,8 +314,8 @@
     @include ui-ratio-box(4/3); // overide the default at runtime
 }
                             </code></pre>
-
-                            <div class="fragment">
+                        </div>
+                        <div class="fragment">
                                 <p>CSS</p>
 <pre><code data-trim contenteditable class="css">
 .box-element {
@@ -385,7 +390,7 @@ figure {
                     </section>
 
                     <section>
-                        <p>Opens up possibility to create an arsenal of small, focused UI components and helpers.</p>
+                        <p>Opens up ability to create an arsenal of small, focused UI components and helpers.</p>
 
                         <div class="fragment">
                             <h1>Scut</h1>
@@ -393,6 +398,24 @@ figure {
                             <p>A mixin-based library of flexible abstractions of common UI patterns, created by David Clark.</p>
                         </div>
                     </section>
+                </section>
+
+                <section>
+                	<h1>Can we take this further?</h1>
+                </section>
+
+                <section>
+                	<section>
+	                	<h2>Complex components using mixins</h2>
+
+	                	<p>Sass enables us to abstract the CSS behind complex UI into simple, declarative mixins which can be involked on any set of suitable elements.</p>
+                	</section>
+
+                	<section>
+                		<h2>Complex Component: Offcanvas Menu</h2>
+
+                		
+                	</section>
                 </section>
 
 			
