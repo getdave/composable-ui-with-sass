@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Composable UI with Sass</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -412,10 +412,68 @@ figure {
                 	</section>
 
                 	<section>
-                		<h2>Complex Component: Offcanvas Menu</h2>
+                		<h2>
+                			Complex Component:<br />
+                			Offcanvas Menu
+                		</h2>    
 
-                		
+                		<p class="fragment">First let's design our API.</p>
+<pre class="fragment"><code data-trim contenteditable class="scss">
+.page {
+	@include ui-offcanvas(
+		$el-body: ".offcanvas__body", // the "main" content of the page
+		$el-off-left: ".offcanvas__offscreen-left", // the left-side offcanvas element
+		$el-off-right: ".offcanvas__offscreen-right", // the right-side offcanvas element
+		$off-width: 260px, // how wide should the offcanvas be?
+		$positioning: "fixed"  // enable usage of absolute or fixed positioning
+	);
+}
+</code></pre>
+
+										<p class="fragment">Maximum control over markup and element selection.</p>
                 	</section>
+
+                	<section>
+
+                		<h3>Setup our HTML</h3>
+                		<p>Simple "page" markup pattern.</p>
+
+<pre><code data-trim contenteditable class="html">
+<div class="page"><!-- wrapper element -->
+    <main class="main-content">
+        <!-- main content here -->
+    </main>
+    <aside class="sidebar-content">
+        <!-- offcanvas element -->
+    </aside>
+</div>
+</code></pre>
+
+										<p class="fragment">...which doesn't match our mixin's defaults.</p>
+                	</section>
+
+                	<section>
+                		<p style="height: 700px;" data-height="700" data-theme-id="16353" data-slug-hash="JdMZGO" data-default-tab="result" data-user="getdave" class='codepen'>See the Pen <a href='http://codepen.io/getdave/pen/JdMZGO/'>JdMZGO</a> by Dave Smith (<a href='http://codepen.io/getdave'>@getdave</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+                	</section>
+
+                	<section>
+                		<h2>Why do this?</h2>
+                		<p class="fragment">Hide <strong>complex CSS logic</strong> behind a <strong>simple facade</strong></p>
+                		<p class="fragment">Provide <strong>maximum configurability</strong> for a <strong>flexible</strong> UI</p>
+                		<p class="fragment">Enforce encapsulation of components for easier reusability</p>
+                		<p class="fragment">Improve portability of components between projects</p>
+                		
+                	</section>	
+                </section>
+
+                <section>
+                	<h1>Thank you</h1>
+                	<ul>
+                		<li>Twitter: <a href="http://twitter.com/getdave/">@get_dave</a></li>
+                		<li>Codepen: <a href="http://codepen.io/getdave/">codepen.io/getdave/</a></li>
+                		<li>Github: <a href="https://github.com/getdave">github.com/getdave</a></li>
+                	</ul>	
                 </section>
 
 			
