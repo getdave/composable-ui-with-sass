@@ -46,6 +46,23 @@
 					<p>
 						<small>David Smith, Technical Lead at Mr B & Friends / <a href="http://twitter.com/get_dave">@get_dave</a></small>
 					</p>
+
+					<aside class="notes">
+						Show of hands - developers vs designers?
+					</aside>
+				</section>
+
+				<section>
+						<h2>Component:</h2>
+						<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+							&ldquo;a part, or element of a larger whole&rdquo;
+						</blockquote>
+
+						<aside class="notes">
+							<p>A small entity or unit which when put together forms a larger whole.</p>
+							<p>Think of it a bit like lego</p>
+						</aside>
+						
 				</section>
 
 				<section>
@@ -72,10 +89,17 @@
 					    <script type="text/template">
 					        ## Example "Component" Libraries
 
-					        * Lonely Planet - [rizzo.lonelyplanet.com/styleguide](http://rizzo.lonelyplanet.com/styleguide/)
+					        * Lonely Planet - [rizzo.lonelyplanet.com/styleguide](http://rizzo.lonelyplanet.com/styleguide/ui-components/)
 					        * Southtees NHS - [southtees.nhs.uk/style-guide](http://southtees.nhs.uk/style-guide/)
 					        * Code for America - [codeforamerica.clearleft.com](http://codeforamerica.clearleft.com/)
 					    </script>
+
+					    <aside class="notes">
+					    	<ul>
+					    		<li>Configurable</li>
+					    		<li>Accept arguments</li>
+					    	</ul>
+					    </aside>
 				    </div>
 
 				    <aside class="notes" data-markdown>
@@ -157,11 +181,23 @@
 
 					<section>
 						<h2>Why so harsh?</h2>
-						<p class="fragment">Can create <strong>unsuitable</strong> relationships between otherwise unconnected entities</p>
+
+						<div class="fragment">
+						<p>Can create <strong>unsuitable</strong> relationships between otherwise unconnected entities</p>
+<pre><code data-trim contenteditable class="css">
+.call-to-action, .promo-cta, .footer-button, .hero-btn, input[type=submit] {
+	display: inline-block;
+  padding: 1em;
+  background-color: red;
+}
+</code></pre>
+						</div>
 						
 						<p class="fragment">Unpredictable, particularly in regard to specificity issues</p>
 						
-						<p class="fragment">Doesn't work within media queries</p>
+						<div class="fragment">
+							<p>Doesn't work within media queries (major problem)</p>
+						</div>
 
 						
 						<aside class="notes">
